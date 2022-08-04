@@ -1,0 +1,20 @@
+.cont {
+  border: 2px solid white;
+  margin-inline: 10em;
+  margin-top: 10em;
+  background-color: rgba(0, 0, 0, 0.737);
+  border-radius: 1em;
+  div {
+    padding: 1em;
+    button {
+      width: 5em;
+      border-radius: 1em !important;
+    }
+    .btn-warning {
+      margin-left: -5em;
+    }
+    .btn-success {
+      margin-left: 2em;
+    }
+  }
+}

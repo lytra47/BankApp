@@ -1,0 +1,279 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  <a class="navbar-brand" style="color: rgb(85, 98, 237)" href="#"
+    >HAFC Bank
+  </a>
+
+  <div class="collapse navbar-collapse bg-dark" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto bg-dark">
+      <li class="nav-item active m-2 bg-dark">
+        <a class="nav-link text-light" href="#">Home </a>
+      </li>
+      <li class="nav-item m-2 bg-dark">
+        <a class="nav-link text-light" href="#">About</a>
+      </li>
+      <li class="nav-item dropdown m-2 text-light bg-dark">
+        <button (click)="deleteParent()" class="btn btn-danger">Delete</button>
+      </li>
+
+      <li class="nav-item active m-2 bg-dark">
+        <a class="nav-link text-danger" (click)="logout()"
+          ><i class="fa fa-power-off fa-lg bg-dark"></i
+        ></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<h3 class="text-light ml-3 mt-2">Welcome, {{ user }}</h3>
+<h5 class="text-light ml-3 mr-3" style="float: right; margin-top: -1.8em">
+  Login : &nbsp; &nbsp;{{ lDate | date: "medium" }}
+</h5>
+
+<a routerLink="/transaction" class="ml-3">Transaction History</a>
+<!--  delet confirmation child-->
+<app-delete-confirmation
+  (onCancel)="cancel()"
+  [item]="acno"
+></app-delete-confirmation>
+<!--  -->
+<div [ngClass]="acno ? 'style1' : ''" class="row mt-5" style="width: 100%">
+  <!--  -->
+  <div class="container col-md-6 mt-0">
+    <div class="d-flex justify-content-center h-100">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center">Deposit form</h3>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="depositForm" (ngSubmit)="deposit()">
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"
+                  ><i class="fas fa-user"></i
+                ></span>
+              </div>
+              <!-- (change)="acnoChange($event)" -->
+              <!-- #acno  template referencing-->
+              <input
+                formControlName="acno"
+                type="text"
+                name="ACNO"
+                class="form-control"
+                placeholder="enter account number"
+                id="login_accno"
+                required
+              />
+            </div>
+            <div
+              *ngIf="
+                this.depositForm.get('acno')?.touched &&
+                this.depositForm.get('acno')?.errors
+              "
+              style="color: red; margin-bottom: 5px; margin-top: -15px"
+            >
+              Invalid account number
+            </div>
+            <!--  -->
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-key"></i></span>
+              </div>
+              <!-- (change)="passChange($event)" -->
+              <!-- #pass template referencing -->
+              <input
+                formControlName="pass"
+                name="PASS"
+                type="password"
+                class="form-control"
+                placeholder="password"
+                id="login_password"
+                required
+              />
+            </div>
+            <div
+              *ngIf="
+                this.depositForm.get('pass')?.touched &&
+                this.depositForm.get('pass')?.errors
+              "
+              style="color: red; margin-bottom: 5px; margin-top: -15px"
+            >
+              Invalid password
+            </div>
+            <!--  -->
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"
+                  ><i class="fas fa-user"></i
+                ></span>
+              </div>
+
+              <input
+                formControlName="amount"
+                type="text"
+                name="AMOUNT"
+                class="form-control"
+                placeholder="enter amount"
+                id="amount"
+                required
+              />
+            </div>
+            <div
+              *ngIf="
+                this.depositForm.get('amount')?.touched &&
+                this.depositForm.get('amount')?.errors
+              "
+              style="color: red; margin-bottom: 5px; margin-top: -15px"
+            >
+              Invalid amount
+            </div>
+            <!--  -->
+
+            <div class="form-group">
+              <!-- (click)="login(acno, pass)" for template referencing -->
+              <input
+                type="submit"
+                value="Deposit"
+                class="btn float-right login_btn"
+                style="width: 100%"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+  <!--  -->
+
+  <!--    -->
+  <!--  withdraw-->
+  <div class="container col-md-6 mt-0">
+    <div class="d-flex justify-content-center h-100">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center">Withdraw form</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="withdrawForm" (ngSubmit)="withdraw()">
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"
+                  ><i class="fas fa-user"></i
+                ></span>
+              </div>
+              <!-- (change)="acnoChange($event)" -->
+              <!-- #acno  template referencing-->
+              <input
+                formControlName="acno1"
+                type="text"
+                name="ACNO1"
+                class="form-control"
+                placeholder="enter account number"
+                id="login_accno"
+                required
+              />
+            </div>
+            <div
+              *ngIf="
+                this.withdrawForm.get('acno1')?.touched &&
+                this.withdrawForm.get('acno1')?.errors
+              "
+              style="color: red; margin-bottom: 5px; margin-top: -15px"
+            >
+              Invalid account number
+            </div>
+            <!--  -->
+
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-key"></i></span>
+              </div>
+              <!-- (change)="passChange($event)" -->
+              <!-- #pass template referencing -->
+              <input
+                formControlName="pass1"
+                name="PASS1"
+                type="password"
+                class="form-control"
+                placeholder="password"
+                id="login_password"
+                required
+              />
+            </div>
+            <div
+              *ngIf="
+                this.withdrawForm.get('pass1')?.touched &&
+                this.withdrawForm.get('pass1')?.errors
+              "
+              style="color: red; margin-bottom: 5px; margin-top: -15px"
+            >
+              Invalid password
+            </div>
+            <!--  -->
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"
+                  ><i class="fas fa-user"></i
+                ></span>
+              </div>
+
+              <input
+                formControlName="amount1"
+                type="text"
+                name="AMOUNT1"
+                class="form-control"
+                placeholder="enter amount"
+                id="amount"
+                required
+              />
+            </div>
+            <div
+              *ngIf="
+                this.withdrawForm.get('amount1')?.touched &&
+                this.withdrawForm.get('amount1')?.errors
+              "
+              style="color: red; margin-bottom: 5px; margin-top: -15px"
+            >
+              Invalid amount
+            </div>
+            <!--  -->
+            <div class="form-group">
+              <!-- (click)="login(acno, pass)" for template referencing -->
+              <input
+                type="submit"
+                value="Withdraw"
+                class="btn float-right login_btn"
+                style="width: 100%"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+</div>
+<!--  -->
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script
+  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+  crossorigin="anonymous"
+></script>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>

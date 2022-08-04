@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  <a class="navbar-brand" style="color: rgb(85, 98, 237)" href="#"
+    >HAFC Bank
+  </a>
+
+  <div class="collapse navbar-collapse bg-dark" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto bg-dark">
+      <li class="nav-item active m-2 bg-dark">
+        <a class="nav-link text-light" href="#">Home </a>
+      </li>
+      <li class="nav-item m-2 bg-dark">
+        <a class="nav-link text-light" href="#">About</a>
+      </li>
+      <li class="nav-item dropdown m-2 text-light bg-dark">
+        <a
+          class="nav-link dropdown-toggle text-light"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Services
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" onclick="bank.balanceEnquiry()">Balance</a>
+          <a
+            class="dropdown-item"
+            data-toggle="modal"
+            data-target="#depositModal"
+            >Deposit</a
+          >
+          <a
+            class="dropdown-item"
+            data-toggle="modal"
+            data-target="#transferModal"
+            >Fund Transfer</a
+          >
+        </div>
+      </li>
+
+      <li class="nav-item active m-2 bg-dark">
+        <a class="nav-link text-danger" onclick="bank.logout()"
+          ><i class="fa fa-power-off fa-lg bg-dark"></i
+        ></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- NAV END -->
+<!--  -->
+<div class="w-50 mx-auto mt-5">
+  <h3 class="text-light text-center">Transaction History</h3>
+</div>
+
+<table class="text-light mx-auto">
+  <thead>
+    <tr>
+      <th class="text-center p-3">Type</th>
+      <th class="text-center p-3">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let t of transaction">
+      <td class="text-center p-3">{{ t.type }}</td>
+      <td class="text-center p-3">{{ t.amount }}</td>
+    </tr>
+  </tbody>
+</table>

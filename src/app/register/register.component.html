@@ -1,0 +1,111 @@
+<!-- As a link -->
+<nav class="navbar navbar-light bg-dark">
+  <a class="navbar-brand" href="#" style="color: rgb(85, 98, 237)"
+    ><b>&#169; HAFC Bank Pvt.Ltd </b></a
+  >
+  <span class="quote text-light">Giving you freedom...</span>
+</nav>
+
+<div class="container col-md-12 mt-0">
+  <div class="d-flex justify-content-center h-100">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="text-center">Sign In</h3>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <!-- (change)="acnoChange($event)" -->
+            <!-- #acno  template referencing-->
+            <input
+              formControlName="uname"
+              type="text"
+              name="UNAME"
+              class="form-control"
+              placeholder="enter username"
+              id="login_accno"
+              required
+            />
+          </div>
+          <div
+            *ngIf="
+              this.registerForm.get('uname')?.touched &&
+              this.registerForm.get('uname')?.errors
+            "
+            style="color: red; margin-bottom: 5px; margin-top: -15px"
+          >
+            Invalid username
+          </div>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <!-- (change)="acnoChange($event)" -->
+            <!-- #acno  template referencing-->
+            <input
+              formControlName="acno"
+              type="text"
+              name="ACNO"
+              class="form-control"
+              placeholder="enter account number"
+              id="login_accno"
+              required
+            />
+          </div>
+          <div
+            *ngIf="
+              this.registerForm.get('acno')?.touched &&
+              this.registerForm.get('acno')?.errors
+            "
+            style="color: red; margin-bottom: 5px; margin-top: -15px"
+          >
+            Invalid account number
+          </div>
+          <!--  -->
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            <!-- (change)="passChange($event)" -->
+            <!-- #pass template referencing -->
+            <input
+              formControlName="pass"
+              name="PASS"
+              type="password"
+              class="form-control"
+              placeholder="password"
+              id="register_password"
+              required
+            />
+          </div>
+          <div
+            *ngIf="
+              this.registerForm.get('pass')?.touched &&
+              this.registerForm.get('pass')?.errors
+            "
+            style="color: red; margin-bottom: 5px; margin-top: -15px"
+          >
+            Invalid password
+          </div>
+          <!--  -->
+          <div class="form-group">
+            <!-- (click)="login(acno, pass)" for template referencing -->
+            <input
+              type="submit"
+              value="Register"
+              class="btn float-right login_btn"
+              style="width: 100%"
+            />
+          </div>
+        </form>
+      </div>
+      <p style="color: white; align-items: baseline; margin-left: 20px">
+        <!-- Angular linking -->
+        Existing user? <a routerLink="">Login</a>
+      </p>
+    </div>
+  </div>
+</div>

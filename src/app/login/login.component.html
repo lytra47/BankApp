@@ -1,0 +1,87 @@
+<!-- As a link -->
+<nav class="navbar navbar-light bg-dark">
+  <a class="navbar-brand" href="#" style="color: rgb(85, 98, 237)"
+    ><b>&#169; HAFC Bank Pvt.Ltd </b></a
+  >
+  <span class="quote text-light">Giving you freedom...</span>
+  <h6 class="text-light">{{ aim }}</h6>
+</nav>
+
+<div class="container col-md-12 mt-0">
+  <div class="d-flex justify-content-center h-100">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="text-center">Sign In</h3>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <!-- (change)="acnoChange($event)" -->
+            <!-- #acno  template referencing-->
+            <input
+              formControlName="acno"
+              type="text"
+              name="ACNO"
+              class="form-control"
+              [placeholder]="account"
+              id="login_accno"
+              required
+            />
+          </div>
+          <div
+            *ngIf="
+              this.loginForm.get('acno')?.touched &&
+              this.loginForm.get('acno')?.errors
+            "
+            style="color: red; margin-bottom: 5px; margin-top: -15px"
+          >
+            Invalid password
+          </div>
+          <!--  -->
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            <!-- (change)="passChange($event)" -->
+            <!-- #pass template referencing -->
+            <input
+              formControlName="pass"
+              name="PASS"
+              type="password"
+              class="form-control"
+              placeholder="password"
+              id="login_password"
+              required
+            />
+          </div>
+          <div
+            *ngIf="
+              this.loginForm.get('pass')?.touched &&
+              this.loginForm.get('pass')?.errors
+            "
+            style="color: red; margin-bottom: 5px; margin-top: -15px"
+          >
+            Invalid password
+          </div>
+          <!--  -->
+          <div class="form-group">
+            <!-- (click)="login(acno, pass)" for template referencing -->
+            <input
+              type="submit"
+              value="Login"
+              class="btn float-right login_btn"
+              style="width: 100%"
+            />
+          </div>
+        </form>
+      </div>
+      <p style="color: white; align-items: baseline; margin-left: 20px">
+        Not a user? <a routerLink="register">Register</a>
+        <!-- Angular linking -->
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+.cont {
+  border: 2px solid white;
+  margin-inline: 10em;
+  margin-top: 10em;
+  background-color: rgba(0, 0, 0, 0.737);
+  border-radius: 1em;
+}
+.cont div {
+  padding: 1em;
+}
+.cont div button {
+  width: 5em;
+  border-radius: 1em !important;
+}
+.cont div .btn-warning {
+  margin-left: -5em;
+}
+.cont div .btn-success {
+  margin-left: 2em;
+}/*# sourceMappingURL=delete-confirmation.component.css.map */
