@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -12,13 +13,28 @@ export class TransactionComponent implements OnInit {
   //tjo hold transaction array
   transaction: any;
 
-  constructor(private ds: DataService) {
+  constructor(private ds: DataService, private router: Router) {
     // to get login acno from data service
-    this.currentAcno = this.ds.currentAcno;
+    this.currentAcno = JSON.parse(localStorage.getItem('currentAcno') || '');
     //get transaction array from data service
-    this.transaction = this.ds.getTransaction(this.currentAcno);
-    console.log(this.transaction);
+    this.ds.getTransaction(this.currentAcno).subscribe(
+      // 200
+      (result: any) => {
+        this.transaction = result.transaction;
+      },
+      (result) => {
+        // 400
+        alert(result.error.message);
+      }
+    );
   }
 
   ngOnInit(): void {}
+
+  logout() {
+    //Remove user login and acno
+    localStorage.removeItem('currentAcno');
+    localStorage.removeItem('currentUser');
+    this.router.navigateByUrl('');
+  }
 }

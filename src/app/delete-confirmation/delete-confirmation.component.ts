@@ -8,11 +8,16 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class DeleteConfirmationComponent implements OnInit {
   @Input() item: string | undefined; //input decorator used so as to get item from parent to child
   @Output() onCancel = new EventEmitter();
+  @Output() onDelete = new EventEmitter();
+
   constructor() {}
 
   ngOnInit(): void {}
 
   cancel() {
     this.onCancel.emit();
+  }
+  delete() {
+    this.onDelete.emit(this.item);
   }
 }

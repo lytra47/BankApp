@@ -46,64 +46,31 @@ export class LoginComponent implements OnInit {
 
   // user defined functions
 
-  // //acnochange
-  // acnoChange(event: any) {
-  //   this.acno = event.target.value; //this to acces properties of a class. doing this so that the value can be accessed by other functions in the same class.
-  //   console.log(this.acno);
-  // }
-  // passChange(event: any) {
-  //   this.pass = event.target.value;
-  //   console.log(this.pass);
-  // }
-
-  // login
-  //   login() {
-  //     const acno = this.acno;
-  //     const pass = this.pass;
-  //     const userDetails = this.userDetails;
-  //     if (acno in userDetails) {
-  //       if (pass == userDetails[acno].passWord) {
-  //         alert('login success');
-  //       } else {
-  //         alert('invalid user id or password');
-  //       }
-  //     } else {
-  //       alert('invalid user id or password');
-  //     }
-  //   }
-  // }
-  //   // TEMPLATE REFERENCING
-  //   login(a: any, p: any) {
-  //     console.log(a.value, p.value);
-  //     const acno = a.value;
-  //     const pass = p.value;
-  //     const userDetails = this.userDetails;
-  //     if (acno in userDetails) {
-  //       if (pass == userDetails[acno].passWord) {
-  //         alert('login success');
-  //       } else {
-  //         alert('invalid user id or password');
-  //       }
-  //     } else {
-  //       alert('invalid user id or password');
-  //     }
-  //   }
-  // }
-
   // ngModel login
   login() {
-    const acno = this.loginForm.value.acno;
-    const pass = this.loginForm.value.pass;
-    console.log(this.loginForm.valid);
+    var acno = this.loginForm.value.acno;
+    var pass = this.loginForm.value.pass;
 
     if (this.loginForm.valid) {
-      const result = this.ds.login(acno, pass);
-
-      if (result) {
-        alert('login success');
-        this.router.navigateByUrl('dashboard');
-        console.log(this.ds.userDetails);
-      }
+      // calling login - dataservice - async
+      this.ds.login(acno, pass).subscribe(
+        (result: any) => {
+          localStorage.setItem(
+            'currentUser',
+            JSON.stringify(result.currentUsername)
+          );
+          localStorage.setItem(
+            'currentAcno',
+            JSON.stringify(result.currentAcno)
+          );
+          localStorage.setItem('token', JSON.stringify(result.token));
+          alert(result.message);
+          this.router.navigateByUrl('dashboard');
+        },
+        (result) => {
+          alert(result.error.message);
+        }
+      );
     } else {
       alert('Invalid Form');
     }

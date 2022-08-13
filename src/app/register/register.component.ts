@@ -45,13 +45,19 @@ export class RegisterComponent implements OnInit {
     const pass = this.registerForm.value.pass;
 
     if (this.registerForm.valid) {
-      // call register in data service
-      const result = this.ds.register(uname, acno, pass);
-      if (result) {
-        alert('Register successfull');
-        this.router.navigateByUrl('');
-        console.log(this.ds);
-      } else alert('Account exist, please login');
+      // call register in data service - asynchronous
+      this.ds.register(uname, acno, pass).subscribe(
+        (result: any) => {
+          if (result) {
+            alert(result.message);
+            this.router.navigateByUrl('');
+          }
+        },
+        (result) => {
+          alert(result.error.message);
+          this.router.navigateByUrl('');
+        }
+      );
     } else {
       alert('Invalid Form');
     }

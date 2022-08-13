@@ -39,21 +39,24 @@ export class DashboardComponent implements OnInit {
   // date
   lDate: any;
 
-  // usernaem login
-  user = this.ds.currentUser;
+  // username login
+  user: any;
   constructor(
     private ds: DataService,
     private fb: FormBuilder,
     private router: Router
   ) {
+    // fetch username from local storage
+
     this.lDate = new Date();
+    this.user = JSON.parse(localStorage.getItem('currentUser') || '');
   }
 
   ngOnInit(): void {
-    if (!localStorage.getItem('currentAcno')) {
-      // alert('please login');
-      this.router.navigateByUrl('');
-    }
+    // if (!localStorage.getItem('currentAcno')) {
+    //   // alert('please login');
+    //   this.router.navigateByUrl('');
+    // }
   }
 
   deposit() {
@@ -61,10 +64,14 @@ export class DashboardComponent implements OnInit {
     const amount = this.depositForm.value.amount;
     const pass = this.depositForm.value.pass;
     if (this.depositForm.valid) {
-      const result = this.ds.deposit(acno, amount, pass);
-      if (result) {
-        alert(`${amount} deposited. New balance is ${result}`);
-      }
+      this.ds.deposit(acno, amount, pass).subscribe(
+        (result: any) => {
+          alert(result.message);
+        },
+        (result) => {
+          alert(result.error.message);
+        }
+      );
     } else {
       alert('Invalid form');
     }
@@ -76,10 +83,17 @@ export class DashboardComponent implements OnInit {
     const pass = this.withdrawForm.value.pass1;
 
     if (this.withdrawForm.valid) {
-      const result = this.ds.withdraw(acno, amount, pass);
-      if (result) {
-        alert(`${amount} withdrawn. New balance is ${result}`);
-      }
+      //async fn call
+      const result = this.ds.withdraw(acno, amount, pass).subscribe(
+        // 200
+        (result: any) => {
+          alert(result.message);
+        },
+        (result) => {
+          // 400
+          alert(result.error.message);
+        }
+      );
     } else {
       alert('Invalid form');
     }
@@ -99,5 +113,19 @@ export class DashboardComponent implements OnInit {
   //cancel() - to set acno as empty
   cancel() {
     this.acno = '';
+  }
+
+  //onDelete ($event)
+  onDelete(event: any) {
+    //async
+    this.ds.delete(event).subscribe(
+      (result: any) => {
+        alert(result.message);
+        this.router.navigateByUrl('');
+      },
+      (result) => {
+        alert(result.error.message);
+      }
+    );
   }
 }

@@ -32,6 +32,7 @@
 <a routerLink="/transaction" class="ml-3">Transaction History</a>
 <!--  delet confirmation child-->
 <app-delete-confirmation
+  (onDelete)="onDelete($event)"
   (onCancel)="cancel()"
   [item]="acno"
 ></app-delete-confirmation>
