@@ -49,14 +49,16 @@ export class DashboardComponent implements OnInit {
     // fetch username from local storage
 
     this.lDate = new Date();
-    this.user = JSON.parse(localStorage.getItem('currentUser') || '');
+    if (localStorage.getItem('currentUser')) {
+      this.user = JSON.parse(localStorage.getItem('currentUser') || '');
+    }
   }
 
   ngOnInit(): void {
-    // if (!localStorage.getItem('currentAcno')) {
-    //   // alert('please login');
-    //   this.router.navigateByUrl('');
-    // }
+    if (!localStorage.getItem('currentAcno')) {
+      alert('please login');
+      this.router.navigateByUrl('');
+    }
   }
 
   deposit() {
@@ -102,6 +104,7 @@ export class DashboardComponent implements OnInit {
     //Remove user login and acno
     localStorage.removeItem('currentAcno');
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
     this.router.navigateByUrl('');
   }
 
@@ -121,7 +124,7 @@ export class DashboardComponent implements OnInit {
     this.ds.delete(event).subscribe(
       (result: any) => {
         alert(result.message);
-        this.router.navigateByUrl('');
+        this.logout();
       },
       (result) => {
         alert(result.error.message);

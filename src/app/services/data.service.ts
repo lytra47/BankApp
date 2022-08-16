@@ -93,6 +93,6 @@ export class DataService {
 
   //delete api
   delete(acno: any) {
-    return this.http.delete('http://localhost:3000/onDelete' + acno);
+    return this.http.delete('http://localhost:3000/onDelete/' + acno);
   }
 }
